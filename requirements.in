@@ -1,0 +1,4 @@
+aiogram==3.31.0
+python-dotenv==1.2.1
+Telethon==1.45.0
+cryptography==50.0.2

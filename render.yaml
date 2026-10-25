@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: tg-sender
+    runtime: python
+    plan: starter
+    numInstances: 1
+    buildCommand: pip install --only-binary=:all: --no-binary=pyaes -r requirements.txt
+    startCommand: python -m bot
+    healthCheckPath: /healthz
+    maxShutdownDelaySeconds: 60
+    disk:
+      name: sender-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: DATA_DIR
+        value: /var/data
+      - key: SEND_INTERVAL_SECONDS
+        value: "5"
+      - key: BOT_TOKEN
+        sync: false
+      - key: SESSION_ENCRYPTION_KEY
+        sync: false
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: MAX_ACTIVE_USERS
+        value: "50"
+      - key: MAX_CONCURRENT_SENDERS
+        value: "3"
